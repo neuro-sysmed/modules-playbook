@@ -7,7 +7,7 @@
         mkdir /tmp/samtools 
         tar jxvf /tmp/samtools.tgz.bz2 --strip 1 -C /tmp/samtools 
         cd /tmp/samtools 
-        ./configure --prefix=/usr/software/samtools/1.13
+        ./configure --prefix=/usr/local/software/samtools/1.13
         make  
         make install  
         rm -rf /tmp/samtools*
