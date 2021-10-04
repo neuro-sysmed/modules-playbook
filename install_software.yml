@@ -1,0 +1,14 @@
+- hosts: all
+
+  hosts: localhost
+  connection: local
+  become: true
+
+  vars_files:
+    - vars/global.yml
+
+  tasks:
+    - name: add samtools
+      include: tasks/samtools.yml
+      tags: samtools
+
