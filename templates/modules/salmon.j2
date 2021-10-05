@@ -4,4 +4,21 @@ set version {{version}}
 set name    salmon
 set descr   "wicked-fast transcript quantification from RNA-seq data"
  
-source {{modulefiles_dir}}/common
+
+proc ModulesHelp { } {
+   global version
+   puts stderr "$name: $descr
+Version $version
+
+"
+}
+
+
+module-whatis "$name version $version"
+    
+conflict $name
+set rootdir {{software_dir}}/$name/$version
+
+prepend-path PATH $rootdir/bin
+prepend-path MANPATH $rootdir/share/man
+
