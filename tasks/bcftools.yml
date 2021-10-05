@@ -1,0 +1,39 @@
+---
+- name: install bcftools
+  block:
+
+    - name: check if bcftools executable is present
+      shell: "which {{software_dir}}/bcftools/{{version}}/bin/bcftools"
+      register: bcftools_bin
+      ignore_errors: true
+
+    - name: Install bcftools
+      ansible.builtin.shell:  |
+        curl -Lo /tmp/bcftools.tgz.bz2 https://github.com/bcftools/bcftools/releases/download/{{version}}/bcftools-{{version}}.tar.bz2 
+        mkdir /tmp/bcftools 
+        tar jxvf /tmp/bcftools.tgz.bz2 --strip 1 -C /tmp/bcftools 
+        cd /tmp/bcftools 
+        ./configure --prefix={{software_dir}}/bcftools/{{version}}
+        make  
+        make install  
+        rm -rf /tmp/bcftools*
+      when: bcftools_bin.rc != 0
+
+
+    - name: make modulesfile dir for bcftools
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/bcftools"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/bcftools.j2
+        dest: "{{modulefiles_dir}}/bcftools/{{version}}"
+        
+
+        
+
+
+
+        
