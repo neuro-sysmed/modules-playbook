@@ -7,7 +7,7 @@
       register: salmon_bin
       ignore_errors: true
 
-    - name: make modulesfile dir for salmon
+    - name: make dir for salmon
       ansible.builtin.file:
         path: "{{software_dir}}/salmon/{{version}}"
         state: directory

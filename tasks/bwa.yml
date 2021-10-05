@@ -7,7 +7,7 @@
       register: bwa_bin
       ignore_errors: true
 
-    - name: make modulesfile dir for bwa
+    - name: make bin dir for bwa
       ansible.builtin.file:
         path: "{{software_dir}}/bwa/{{version}}/bin/"
         state: directory

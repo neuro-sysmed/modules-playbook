@@ -7,6 +7,12 @@
       register: bedtools_bin
       ignore_errors: true
 
+    - name: make dir for bedtools
+      ansible.builtin.file:
+        path: "{{software_dir}}/bedtools/{{version}}/bin/"
+        state: directory
+        mode: '0755'        
+
     - name: Install bedtools
       ansible.builtin.shell:  |
         curl -Lo /tmp/bedtools.tgz https://github.com/arq5x/bedtools2/releases/download/v{{version}}/bedtools-{{version}}.tar.gz 
