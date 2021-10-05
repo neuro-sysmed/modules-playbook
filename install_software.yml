@@ -11,4 +11,9 @@
     - name: add samtools
       include: tasks/samtools.yml
       tags: samtools
+      loop:
+        - 1.13
+        - 1.12
+
+    
 
