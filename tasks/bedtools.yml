@@ -1,0 +1,38 @@
+---
+- name: install bedtools
+  block:
+
+    - name: check if bedtools executable is present
+      shell: "which {{software_dir}}/bedtools/{{version}}/bin/bedtools"
+      register: bedtools_bin
+      ignore_errors: true
+
+    - name: Install bedtools
+      ansible.builtin.shell:  |
+        curl -Lo /tmp/bedtools.tgz https://github.com/arq5x/bedtools2/releases/download/v{{version}}/bedtools-{{version}}.tar.gz 
+        mkdir /tmp/bedtools 
+        tar zxvf /tmp/bedtools.tgz --strip 1 -C /tmp/bedtools 
+        cd /tmp/bedtools/ 
+        make 
+        cp bin/* {{software_dir}}/bedtools/{{version}}/bin/
+        rm -rf /tmp/bedtools*
+      when: bedtools_bin.rc != 0
+
+
+    - name: make modulesfile dir for bedtools
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/bedtools"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/bedtools.j2
+        dest: "{{modulefiles_dir}}/bedtools/{{version}}"
+        
+
+        
+
+
+
+        

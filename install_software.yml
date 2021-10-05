@@ -53,3 +53,11 @@
         - "2.7.8a"
       loop_control:
         loop_var: version
+
+    - name: add bedtools
+      include: tasks/bedtools.yml
+      tags: bedtools
+      loop:
+        - "2.30.0"
+      loop_control:
+        loop_var: version
