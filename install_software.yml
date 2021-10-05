@@ -45,3 +45,11 @@
         - 2.22
       loop_control:
         loop_var: version
+
+    - name: add star
+      include: tasks/star.yml
+      tags: star
+      loop:
+        - "2.7.8a"
+      loop_control:
+        loop_var: version

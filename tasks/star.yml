@@ -1,0 +1,45 @@
+---
+- name: install star
+  block:
+
+    - name: check if star executable is present
+      shell: "which {{software_dir}}/star/{{version}}/bin/STAR"
+      register: star_bin
+      ignore_errors: true
+
+    - name: make modulesfile dir for star
+      ansible.builtin.file:
+        path: "{{software_dir}}/star/{{version}}/bin"
+        state: directory
+        mode: '0755'        
+
+    - name: Install star
+      ansible.builtin.shell:  |
+        curl -Lo  /tmp/star.tgz https://github.com/alexdobin/STAR/archive/{{version}}.tar.gz 
+        mkdir /tmp/star 
+        tar zxvf /tmp/star.tgz --strip 1 -C /tmp/star 
+        cd /tmp/star/source 
+        make  
+        cp STAR {{software_dir}}/star/{{version}}/bin/
+        rm -rf /tmp/star*
+
+      when: star_bin.rc != 0
+
+
+    - name: make modulesfile dir for star
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/star/bin"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/star.j2
+        dest: "{{modulefiles_dir}}/star/{{version}}"
+        
+
+        
+
+
+
+        
