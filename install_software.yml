@@ -24,5 +24,14 @@
         - 0.7.17
       loop_control:
         loop_var: version
-    
+
+    - name: add minimap2
+      include: tasks/minimap2.yml
+      tags: minimap2
+      loop:
+        - 2.20
+      loop_control:
+        loop_var: version
+
+
 
