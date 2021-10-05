@@ -7,6 +7,15 @@
       register: cellranger_bin
       ignore_errors: true
 
+
+
+    - name: make bin dir for cellranger
+      ansible.builtin.file:
+        path: "{{software_dir}}/cellranger/{{version}}/"
+        state: directory
+        mode: '0755'        
+
+
     - name: Install cellranger
       ansible.builtin.shell:  |
         ./bin/get_cellranger.py -v {{version}} -o /tmp/cellranger.tgz
