@@ -1,2 +1,3 @@
 
-modulefiles: /usr/local/modulefiles
+modulefiles_dir: /usr/local/modulefiles
+software_dir: /usr/local/software
