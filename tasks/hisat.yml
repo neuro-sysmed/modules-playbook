@@ -2,6 +2,11 @@
 - name: install hisat
   block:
 
+    - name: set version
+      set_fact:
+        version: 2.2.1
+
+
     - name: check if hisat executable is present
       shell: "which {{software_dir}}/hisat/{{version}}/bin/hisat"
       register: hisat_bin
