@@ -32,9 +32,6 @@
         dest: "{{modulefiles_dir}}/samtools/{{item}}"
         
 
-  loop:
-    - 1.13
-    - 1.12
         
 
 
