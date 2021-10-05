@@ -9,7 +9,7 @@
 
     - name: make modulesfile dir for minimap2
       ansible.builtin.file:
-        path: "{{software_dir}}/minimap2/{{version}}"
+        path: "{{software_dir}}/minimap2/{{version}}/bin"
         state: directory
         mode: '0755'        
 
@@ -22,14 +22,14 @@
         tar jxvf /tmp/minimap2.tgz.bz2 --strip 1 -C /tmp/minimap2 
         cd /tmp/minimap2 
         make 
-        cp  minimap2 {{software_dir}}/minimap2/{{version}}/
+        cp  minimap2 {{software_dir}}/minimap2/{{version}}/bin/
         rm -rf /tmp/minimap2*
       when: minimap2_bin.rc != 0
 
 
     - name: make modulesfile dir for minimap2
       ansible.builtin.file:
-        path: "{{modulefiles_dir}}/minimap2"
+        path: "{{modulefiles_dir}}/minimap2/bin"
         state: directory
         mode: '0755'        
 

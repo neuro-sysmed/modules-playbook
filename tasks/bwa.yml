@@ -9,7 +9,7 @@
 
     - name: make modulesfile dir for bwa
       ansible.builtin.file:
-        path: "{{software_dir}}/bwa/{{version}}"
+        path: "{{software_dir}}/bwa/{{version}}/bin/"
         state: directory
         mode: '0755'        
 
@@ -21,7 +21,7 @@
         tar jxvf /tmp/bwa.tgz.bz2 --strip 1 -C /tmp/bwa 
         cd /tmp/bwa 
         make  
-        cp bwa {{software_dir}}/bwa/{{version}}/
+        cp bwa {{software_dir}}/bwa/{{version}}/bin/
         rm -rf /tmp/bwa*
       when: bwa_bin.rc != 0
 
