@@ -3,17 +3,17 @@
   block:
 
     - name: check if samtools executable is present
-      shell: "which {{software_dir}}/samtools/{{item}}/bin/samtools"
+      shell: "which {{software_dir}}/samtools/{{version}}/bin/samtools"
       register: samtools_bin
       ignore_errors: true
 
     - name: Install samtools
       ansible.builtin.shell:  |
-        curl -Lo /tmp/samtools.tgz.bz2 https://github.com/samtools/samtools/releases/download/{{item}}/samtools-{{item}}.tar.bz2 
+        curl -Lo /tmp/samtools.tgz.bz2 https://github.com/samtools/samtools/releases/download/{{version}}/samtools-{{version}}.tar.bz2 
         mkdir /tmp/samtools 
         tar jxvf /tmp/samtools.tgz.bz2 --strip 1 -C /tmp/samtools 
         cd /tmp/samtools 
-        ./configure --prefix={{software_dir}}/samtools/{{item}}
+        ./configure --prefix={{software_dir}}/samtools/{{version}}
         make  
         make install  
         rm -rf /tmp/samtools*
@@ -29,7 +29,7 @@
     - name: write module file
       template: 
         src: templates/modules/samtools.j2
-        dest: "{{modulefiles_dir}}/samtools/{{item}}"
+        dest: "{{modulefiles_dir}}/samtools/{{version}}"
         
 
         
