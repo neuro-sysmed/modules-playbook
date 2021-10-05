@@ -1,0 +1,33 @@
+---
+- name: install cellranger
+  block:
+
+    - name: check if cellranger executable is present
+      shell: "which {{software_dir}}/cellranger/{{version}}/bin/cellranger"
+      register: cellranger_bin
+      ignore_errors: true
+
+    - name: Install cellranger
+      ansible.builtin.shell:  |
+        ./bin/get_cellranger.py -v {{version}} -o /tmp/cellranger.tgz
+        tar zxvf /tmp/cellranger.tgz --strip 1 -C  {{software_dir}}/cellranger/{{version}}
+        rm -rf cellranger.tgz
+      when: cellranger_bin.rc != 0
+
+    - name: make modulesfile dir for cellranger
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/cellranger"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/cellranger.j2
+        dest: "{{modulefiles_dir}}/cellranger/{{version}}"
+        
+
+        
+
+
+
+        
