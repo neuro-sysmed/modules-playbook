@@ -5,7 +5,7 @@
   become: true
 
   vars_files:
-#    - vars/global.yml
+    - vars/global.yml
 
   tasks:
     - name: add samtools

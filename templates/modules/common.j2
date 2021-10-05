@@ -1,0 +1,23 @@
+#Common modulefile for nsm tools
+#Expects the following variables to have been set
+#   version: the version of fooA
+#   name: name of the tool
+#   descr: description of tool
+
+proc ModulesHelp { } {
+   global version
+   puts stderr "$name: $descr
+Version $version
+
+"
+}
+
+
+module-whatis "$name version $version"
+    
+conflict $name
+set rootdir {{software_dir}}/$name/$version
+
+prepend-path PATH $rootdir/bin
+prepend-path MANPATH $rootdir/share/man
+prepend-path LD_LIBRARY_PATH $rootdir/lib
