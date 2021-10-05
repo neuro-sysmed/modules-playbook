@@ -78,7 +78,7 @@
       include: tasks/salmon.yml
       tags: salmon
       loop:
-        - "1.5.1"
+        - "1.5.2"
       loop_control:
         loop_var: version
 
