@@ -17,7 +17,7 @@
     - name: Install salmon
       ansible.builtin.shell:  |
         curl -Lo /tmp/salmon.tgz https://github.com/COMBINE-lab/salmon/releases/download/v{{version}}/salmon-{{version}}_linux_x86_64.tar.gz 
-        tar zxvf {{software_dir}}/salmon/{{version}} --strip 1 -C /usr/local/lib/salmon.tgz 
+        tar zxvf /tmp/salmon.tgz --strip 1 -C  {{software_dir}}/salmon/{{version}}
         rm -f /tmp/salmon.tgz
       when: salmon_bin.rc != 0
 
