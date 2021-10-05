@@ -90,6 +90,6 @@
       loop_control:
         loop_var: version
 
-    - name: add hisat
-      include: tasks/hisat.yml
-      tags: hisat
+    - name: add hisat2
+      include: tasks/hisat2.yml
+      tags: hisat2
