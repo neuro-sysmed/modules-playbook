@@ -27,7 +27,7 @@
 
     - name: make modulesfile dir for minimap2
       ansible.builtin.file:
-        path: "{{modulefiles_dir}}/minimap2/bin"
+        path: "{{modulefiles_dir}}/minimap2/"
         state: directory
         mode: '0755'        
 

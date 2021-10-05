@@ -28,7 +28,7 @@
 
     - name: make modulesfile dir for star
       ansible.builtin.file:
-        path: "{{modulefiles_dir}}/star/bin"
+        path: "{{modulefiles_dir}}/star/"
         state: directory
         mode: '0755'        
 
