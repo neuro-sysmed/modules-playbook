@@ -17,5 +17,12 @@
       loop_control:
         loop_var: version
 
+    - name: add bwa
+      include: tasks/bwa.yml
+      tags: bwa
+      loop:
+        - 0.7.17
+      loop_control:
+        loop_var: version
     
 

@@ -1,0 +1,38 @@
+---
+- name: install bwa
+  block:
+
+    - name: check if bwa executable is present
+      shell: "which {{software_dir}}/bwa/{{version}}/bin/bwa"
+      register: bwa_bin
+      ignore_errors: true
+
+    - name: Install bwa
+      ansible.builtin.shell:  |
+        curl -Lo /tmp/bwa.tgz.bz2 https://downloads.sourceforge.net/project/bio-bwa/bwa-{{version}}.tar.bz2 
+        mkdir /tmp/bwa 
+        tar jxvf /tmp/bwa.tgz.bz2 --strip 1 -C /tmp/bwa 
+        cd /tmp/bwa 
+        make  
+        cp bwa /usr/local/bin/bwa  
+        rm -rf /tmp/bwa*
+      when: bwa_bin.rc != 0
+
+
+    - name: make modulesfile dir for bwa
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/bwa"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/bwa.j2
+        dest: "{{modulefiles_dir}}/bwa/{{version}}"
+        
+
+        
+
+
+
+        
