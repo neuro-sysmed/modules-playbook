@@ -1,0 +1,42 @@
+---
+- name: install gatk
+  block:
+
+    - name: check if gatk executable is present
+      shell: "which {{software_dir}}/gatk/{{version}}/bin/gatk"
+      register: gatk_bin
+      ignore_errors: true
+
+    - name: make dir for gatk
+      ansible.builtin.file:
+        path: "{{software_dir}}/gatk/{{version}}/bin"
+        state: directory
+        mode: '0755'        
+
+    - name: Install gatk
+      ansible.builtin.shell:  |
+        curl -Lo /tmp/gatk.zip https://github.com/broadinstitute/gatk/releases/download/{{version}}/gatk-{{version}}.zip 
+        mkdir /usr/local/gatk 
+        unzip -d /usr/local/gatk/ /tmp/gatk.zip 
+        mv /usr/local/gatk/*/* {{software_dir}}/gatk/{{version}}/bin/
+        rm -f /tmp/gatk.zip
+      when: gatk_bin.rc != 0
+
+
+    - name: make modulesfile dir for gatk
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/gatk/"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/gatk.j2
+        dest: "{{modulefiles_dir}}/gatk/{{version}}"
+        
+
+        
+
+
+
+        

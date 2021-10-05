@@ -90,6 +90,18 @@
       loop_control:
         loop_var: version
 
+    - name: add gatk
+      include: tasks/gatk.yml
+      tags: gatk
+      loop:
+        - "4.2.0.0"
+      loop_control:
+        loop_var: version
+
+
+
     - name: add hisat2
       include: tasks/hisat2.yml
       tags: hisat2
+
+    
