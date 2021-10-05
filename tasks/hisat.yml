@@ -8,7 +8,7 @@
 
 
     - name: check if hisat executable is present
-      shell: "which {{software_dir}}/hisat/{{version}}/bin/hisat"
+      shell: "which {{software_dir}}/hisat/{{version}}/bin/hisat2"
       register: hisat_bin
       ignore_errors: true
 
@@ -22,8 +22,8 @@
       ansible.builtin.shell:  |
         curl -Lo  /tmp/hisat.zip https://cloud.biohpc.swmed.edu/index.php/s/oTtGWbWjaxsQ2Ho/download 
         mkdir /tmp/hisat
-        unzip /tmp/hisat.zip --strip 1 -d /tmp/hisat 
-        cp /tmp/hisat/*/hisat {{software_dir}}/hisat/{{version}}/bin/
+        unzip /tmp/hisat.zip -d /tmp/hisat 
+        cp /tmp/hisat/*/hisat2 {{software_dir}}/hisat/{{version}}/bin/
         rm -rf /tmp/hisat*
       when: hisat_bin.rc != 0
 
