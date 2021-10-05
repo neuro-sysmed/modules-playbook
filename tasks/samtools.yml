@@ -20,10 +20,10 @@
 
 
     - name: make modulesfile dir for samtools
-        ansible.builtin.file:
-          path: "{{modulefiles_dir}}/samtools"
-          state: directory
-          mode: '0755'        
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/samtools"
+        state: directory
+        mode: '0755'        
 
     - name: write module file
       template: 
