@@ -13,11 +13,9 @@
         state: directory
         mode: '0755'        
 
-
-
     - name: Install minimap2
       ansible.builtin.shell:  |
-        curl -Lo /tmp/minimap2.tgz.bz2 https://github.com/lh3/minimap2/releases/download/v2.20/minimap2-{{version}}.tar.bz2 
+        curl -Lo /tmp/minimap2.tgz.bz2 https://github.com/lh3/minimap2/releases/download/v{{version}}/minimap2-{{version}}.tar.bz2 
         mkdir /tmp/minimap2 
         tar jxvf /tmp/minimap2.tgz.bz2 --strip 1 -C /tmp/minimap2 
         cd /tmp/minimap2 
