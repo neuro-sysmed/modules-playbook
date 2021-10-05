@@ -61,3 +61,11 @@
         - "2.30.0"
       loop_control:
         loop_var: version
+
+    - name: add salmon
+      include: tasks/salmon.yml
+      tags: salmon
+      loop:
+        - "1.5.1"
+      loop_control:
+        loop_var: version

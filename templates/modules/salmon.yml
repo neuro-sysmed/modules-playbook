@@ -1,0 +1,7 @@
+#%Module1.0
+
+set version {{version}}
+set name    salmon
+set descr   "wicked-fast transcript quantification from RNA-seq data"
+ 
+source {{modulefiles_dir}}/common
