@@ -7,6 +7,14 @@
       register: subread_bin
       ignore_errors: true
 
+
+    - name: make dir for subread
+      ansible.builtin.file:
+        path: "{{software_dir}}/subread/{{version}}"
+        state: directory
+        mode: '0755'        
+
+
     - name: Install subread
       ansible.builtin.shell:  |
         curl -Lo /tmp/subread.tgz https://sourceforge.net/projects/subread/files/subread-{{version}}/subread-{{version}}-Linux-x86_64.tar.gz/download 
