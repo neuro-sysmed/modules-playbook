@@ -1,0 +1,39 @@
+---
+- name: install htslib
+  block:
+
+    - name: check if htslib executable is present
+      shell: "which {{software_dir}}/htslib/{{version}}/bin/tabix"
+      register: htslib_bin
+      ignore_errors: true
+
+    - name: Install htslib
+      ansible.builtin.shell:  |
+        curl -Lo /tmp/htslib.tar.bz2 https://github.com/samtools/htslib/releases/download/{{version}}/htslib-{{version}}.tar.bz2
+        mkdir /tmp/htslib 
+        tar jxvf /tmp/htslib.tar.bz2 --strip 1 -C /tmp/htslib 
+        cd /tmp/htslib 
+        ./configure --prefix={{software_dir}}/htslib/{{version}}
+        make  
+        make install  
+        rm -rf /tmp/htslib*
+      when: htslib_bin.rc != 0
+
+
+    - name: make modulesfile dir for htslib
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/htslib"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/htslib.j2
+        dest: "{{modulefiles_dir}}/htslib/{{version}}"
+        
+
+        
+
+
+
+        

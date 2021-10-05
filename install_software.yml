@@ -18,6 +18,18 @@
       loop_control:
         loop_var: version
 
+
+    - name: add htslib
+      include: tasks/htslib.yml
+      tags: htslib
+      loop:
+        - 1.13
+        - 1.12
+        - 1.11
+      loop_control:
+        loop_var: version
+
+
     - name: add bcftools
       include: tasks/bcftools.yml
       tags: bcftools
