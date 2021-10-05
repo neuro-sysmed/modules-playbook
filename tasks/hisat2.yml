@@ -25,7 +25,7 @@
         unzip /tmp/hisat2.zip -d /tmp/hisat2 
         cp /tmp/hisat2/*/hisat2* {{software_dir}}/hisat2/{{version}}/bin/
         rm -rf /tmp/hisat2*
-      when: hisat_bin.rc != 0
+      when: hisat2_bin.rc != 0
 
 
     - name: make modulesfile dir for hisat2
