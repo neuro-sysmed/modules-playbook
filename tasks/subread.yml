@@ -3,7 +3,7 @@
   block:
 
     - name: check if subread executable is present
-      shell: "which {{software_dir}}/subread/{{version}}/bin/featurecounts"
+      shell: "which {{software_dir}}/subread/{{version}}/bin/featureCounts"
       register: subread_bin
       ignore_errors: true
 

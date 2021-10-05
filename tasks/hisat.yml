@@ -1,0 +1,42 @@
+---
+- name: install hisat
+  block:
+
+    - name: check if hisat executable is present
+      shell: "which {{software_dir}}/hisat/{{version}}/bin/hisat"
+      register: hisat_bin
+      ignore_errors: true
+
+    - name: make dir for hisat
+      ansible.builtin.file:
+        path: "{{software_dir}}/hisat/{{version}}/bin"
+        state: directory
+        mode: '0755'        
+
+    - name: Install hisat
+      ansible.builtin.shell:  |
+        curl -Lo  /tmp/hisat.zip https://cloud.biohpc.swmed.edu/index.php/s/oTtGWbWjaxsQ2Ho/download 
+        mkdir /tmp/hisat
+        unzip /tmp/hisat.zip --strip 1 -d /tmp/hisat 
+        cp /tmp/hisat/*/hisat {{software_dir}}/hisat/{{version}}/bin/
+        rm -rf /tmp/hisat*
+      when: hisat_bin.rc != 0
+
+
+    - name: make modulesfile dir for hisat
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/hisat/bin"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/hisat.j2
+        dest: "{{modulefiles_dir}}/hisat/{{version}}"
+        
+
+        
+
+
+
+        

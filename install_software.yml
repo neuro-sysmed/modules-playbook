@@ -89,3 +89,7 @@
         - "2.0.3"
       loop_control:
         loop_var: version
+
+    - name: add hisat
+      include: tasks/hisat.yml
+      tags: hisat
