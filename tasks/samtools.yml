@@ -6,8 +6,6 @@
       register: samtools_bin
       ignore_errors: true
 
-
-
     - name: Install samtools
       ansible.builtin.shell:  |
         curl -Lo /tmp/samtools.tgz.bz2 https://github.com/samtools/samtools/releases/download/{{item}}/samtools-{{item}}.tar.bz2 
@@ -23,7 +21,7 @@
 
     - name: make modulesfile dir for samtools
         ansible.builtin.file:
-          path: "{{/usr/local/modulefiles}}/samtools"
+          path: "{{modulefiles_dir}}/samtools"
           state: directory
           mode: '0755'        
 
