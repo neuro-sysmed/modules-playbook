@@ -7,6 +7,14 @@
       register: minimap2_bin
       ignore_errors: true
 
+    - name: make modulesfile dir for minimap2
+      ansible.builtin.file:
+        path: "{{software_dir}}/minimap2/{{vesion}}"
+        state: directory
+        mode: '0755'        
+
+
+
     - name: Install minimap2
       ansible.builtin.shell:  |
         curl -Lo /tmp/minimap2.tgz.bz2 https://github.com/lh3/minimap2/releases/download/v2.20/minimap2-{{version}}.tar.bz2 
@@ -14,7 +22,7 @@
         tar jxvf /tmp/minimap2.tgz.bz2 --strip 1 -C /tmp/minimap2 
         cd /tmp/minimap2 
         make 
-        cp  minimap2 /usr/local/bin/minimap2  
+        cp  minimap2 {{software_dir}}/minimap2/{{vesion}}/
         rm -rf /tmp/minimap2*
       when: minimap2_bin.rc != 0
 

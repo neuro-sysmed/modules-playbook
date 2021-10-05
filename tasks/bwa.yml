@@ -7,6 +7,13 @@
       register: bwa_bin
       ignore_errors: true
 
+    - name: make modulesfile dir for bwa
+      ansible.builtin.file:
+        path: "{{software_dir}}/bwa/{{vesion}}"
+        state: directory
+        mode: '0755'        
+
+
     - name: Install bwa
       ansible.builtin.shell:  |
         curl -Lo /tmp/bwa.tgz.bz2 https://downloads.sourceforge.net/project/bio-bwa/bwa-{{version}}.tar.bz2 
@@ -14,7 +21,7 @@
         tar jxvf /tmp/bwa.tgz.bz2 --strip 1 -C /tmp/bwa 
         cd /tmp/bwa 
         make  
-        cp bwa /usr/local/bin/bwa  
+        cp bwa {{software_dir}}/bwa/{{vesion}}/
         rm -rf /tmp/bwa*
       when: bwa_bin.rc != 0
 
