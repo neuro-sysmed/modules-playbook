@@ -23,7 +23,7 @@
         curl -Lo  /tmp/hisat.zip https://cloud.biohpc.swmed.edu/index.php/s/oTtGWbWjaxsQ2Ho/download 
         mkdir /tmp/hisat
         unzip /tmp/hisat.zip -d /tmp/hisat 
-        cp /tmp/hisat/*/hisat2 {{software_dir}}/hisat/{{version}}/bin/
+        cp /tmp/hisat/*/hisat2* {{software_dir}}/hisat/{{version}}/bin/
         rm -rf /tmp/hisat*
       when: hisat_bin.rc != 0
 
