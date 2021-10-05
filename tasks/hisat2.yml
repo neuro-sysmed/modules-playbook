@@ -21,14 +21,14 @@
     - name: Install hisat2
       ansible.builtin.shell:  |
         curl -Lo  /tmp/hisat2.zip https://cloud.biohpc.swmed.edu/index.php/s/oTtGWbWjaxsQ2Ho/download 
-        mkdir /tmp/hisat
+        mkdir /tmp/hisat2
         unzip /tmp/hisat2.zip -d /tmp/hisat2 
         cp /tmp/hisat2/*/hisat2* {{software_dir}}/hisat2/{{version}}/bin/
-        rm -rf /tmp/hisat*
+        rm -rf /tmp/hisat2*
       when: hisat_bin.rc != 0
 
 
-    - name: make modulesfile dir for hisat
+    - name: make modulesfile dir for hisat2
       ansible.builtin.file:
         path: "{{modulefiles_dir}}/hisat2/"
         state: directory
