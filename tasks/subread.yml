@@ -1,0 +1,34 @@
+---
+- name: install subread
+  block:
+
+    - name: check if subread executable is present
+      shell: "which {{software_dir}}/subread/{{version}}/bin/featurecounts"
+      register: subread_bin
+      ignore_errors: true
+
+    - name: Install subread
+      ansible.builtin.shell:  |
+        curl -Lo /tmp/subread.tgz https://sourceforge.net/projects/subread/files/subread-{{version}}/subread-{{version}}-Linux-x86_64.tar.gz/download 
+        tar zxvf /tmp/subread.tgz --strip 1 -C {{software_dir}}/subread/{{version}}/ 
+        rm -rf /tmp/subread*
+      when: subread_bin.rc != 0
+
+
+    - name: make modulesfile dir for subread
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/subread"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/subread.j2
+        dest: "{{modulefiles_dir}}/subread/{{version}}"
+        
+
+        
+
+
+
+        

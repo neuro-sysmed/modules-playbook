@@ -69,3 +69,11 @@
         - "1.5.1"
       loop_control:
         loop_var: version
+
+    - name: add subread
+      include: tasks/subread.yml
+      tags: subread
+      loop:
+        - "2.0.3"
+      loop_control:
+        loop_var: version
