@@ -11,7 +11,7 @@
       ansible.builtin.shell:  |
         curl -Lo /tmp/vcftools.tgz https://github.com/vcftools/vcftools/releases/download/v0.1.16/vcftools-0.1.16.tar.gz
         mkdir /tmp/vcftools 
-        tar zxvf /tmp/vcftools.tgz --strip 1 -C /tmp/vcftools 
+        tar zxvf /tmp/vcftools.tgz --strip 2 -C /tmp/vcftools 
         cd /tmp/vcftools 
         ./configure --prefix={{software_dir}}/vcftools/{{version}}
         make  
