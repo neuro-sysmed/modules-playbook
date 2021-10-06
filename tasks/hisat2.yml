@@ -2,19 +2,15 @@
 - name: install hisat2
   block:
 
-    - name: set hisat_version
-      set_fact:
-        hisat_version: 2.2.1
-
 
     - name: check if hisat2 executable is present
-      shell: "which {{software_dir}}/hisat2/{{hisat_version}}/bin/hisat2"
+      shell: "which {{software_dir}}/hisat2/{{version}}/bin/hisat2"
       register: hisat2_bin
       ignore_errors: true
 
     - name: make dir for hisat2
       ansible.builtin.file:
-        path: "{{software_dir}}/hisat2/{{hisat_version}}/bin"
+        path: "{{software_dir}}/hisat2/{{version}}/bin"
         state: directory
         mode: '0755'        
 
@@ -23,7 +19,7 @@
         curl -Lo  /tmp/hisat2.zip https://cloud.biohpc.swmed.edu/index.php/s/oTtGWbWjaxsQ2Ho/download 
         mkdir /tmp/hisat2
         unzip /tmp/hisat2.zip -d /tmp/hisat2 
-        cp /tmp/hisat2/*/hisat2* {{software_dir}}/hisat2/{{hisat_version}}/bin/
+        cp /tmp/hisat2/*/hisat2* {{software_dir}}/hisat2/{{version}}/bin/
         rm -rf /tmp/hisat2*
       when: hisat2_bin.rc != 0
 
@@ -37,7 +33,7 @@
     - name: write module file
       template: 
         src: templates/modules/hisat2.j2
-        dest: "{{modulefiles_dir}}/hisat2/{{hisat_version}}"
+        dest: "{{modulefiles_dir}}/hisat2/{{version}}"
         
 
         

@@ -107,12 +107,6 @@
       loop_control:
         loop_var: version
 
-
-    - name: add hisat2
-      include: tasks/hisat2.yml
-      tags: hisat2
-
-
     - name: add cellranger (only latest is available for download, but for now...)
       include: tasks/cellranger.yml
       tags: cellranger
@@ -121,3 +115,12 @@
       loop_control:
         loop_var: version
     
+    - name: add hisat2
+      include: tasks/hisat2.yml
+      tags: hisat2
+      loop:
+        # This is a fudge, as there is no logical version download link       
+        - "2.2.1"
+      loop_control:
+        loop_var: version
+
