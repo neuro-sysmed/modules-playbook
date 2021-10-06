@@ -40,6 +40,15 @@
       loop_control:
         loop_var: version
 
+    - name: add vcftools
+      include: tasks/vcftools.yml
+      tags: vcftools
+      loop:
+        - 1.16
+      loop_control:
+        loop_var: version
+
+
     - name: add bwa
       include: tasks/bwa.yml
       tags: bwa
@@ -99,13 +108,12 @@
         loop_var: version
 
 
-
     - name: add hisat2
       include: tasks/hisat2.yml
       tags: hisat2
 
 
-    - name: add cellranger (only latest!)
+    - name: add cellranger (only latest is available for download, but for now...)
       include: tasks/cellranger.yml
       tags: cellranger
       loop:

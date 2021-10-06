@@ -9,9 +9,9 @@
 
     - name: Install bcftools
       ansible.builtin.shell:  |
-        curl -Lo /tmp/bcftools.tgz.bz2 https://github.com/bcftools/bcftools/releases/download/{{version}}/bcftools-{{version}}.tar.bz2 
+        curl -Lo /tmp/bcftools.tar.bz2 https://github.com/bcftools/bcftools/releases/download/{{version}}/bcftools-{{version}}.tar.bz2 
         mkdir /tmp/bcftools 
-        tar jxvf /tmp/bcftools.tgz.bz2 --strip 1 -C /tmp/bcftools 
+        tar jxvf /tmp/bcftools.tar.bz2 --strip 1 -C /tmp/bcftools 
         cd /tmp/bcftools 
         ./configure --prefix={{software_dir}}/bcftools/{{version}}
         make  
