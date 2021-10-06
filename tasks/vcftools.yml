@@ -1,0 +1,39 @@
+---
+- name: install vcftools
+  block:
+
+    - name: check if vcftools executable is present
+      shell: "which {{software_dir}}/vcftools/{{version}}/bin/vcftools"
+      register: vcftools_bin
+      ignore_errors: true
+
+    - name: Install vcftools
+      ansible.builtin.shell:  |
+        curl -Lo /tmp/vcftools.tgz https://github.com/vcftools/vcftools/releases/download/v0.1.16/vcftools-0.1.16.tar.gz
+        mkdir /tmp/vcftools 
+        tar zxvf /tmp/vcftools.tgz --strip 1 -C /tmp/vcftools 
+        cd /tmp/vcftools 
+        ./configure --prefix={{software_dir}}/vcftools/{{version}}
+        make  
+        make install  
+        rm -rf /tmp/vcftools*
+      when: vcftools_bin.rc != 0
+
+
+    - name: make modulesfile dir for vcftools
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/vcftools"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/vcftools.j2
+        dest: "{{modulefiles_dir}}/vcftools/{{version}}"
+        
+
+        
+
+
+
+        
