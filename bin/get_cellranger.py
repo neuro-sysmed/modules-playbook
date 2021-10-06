@@ -51,8 +51,8 @@ def main():
 
     download_link = g.groups( 1 )[0]
     if args.version is not None:
-        print( f"diff version {args.version}")
-        download_link = re.sub(r'-(.*?).tar.gz', f'-{args.version}.tar.gz', download_link)
+ #       print( f"diff version {args.version}")
+        download_link = re.sub(r'cellranger-(.*?).tar.gz', f'cellranger-{args.version}.tar.gz', download_link)
 
 
 #    print( download_link)
@@ -61,9 +61,7 @@ def main():
     uri = uri.replace('"','')
     uri = uri.replace('&amp;','&')
 
-
-
-    print( filename, uri)
+#    print( filename, uri)
     if args.outfile is not None:
         filename = args.outfile
 
