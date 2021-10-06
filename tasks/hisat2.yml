@@ -2,7 +2,6 @@
 - name: install hisat2
   block:
 
-
     - name: check if hisat2 executable is present
       shell: "which {{software_dir}}/hisat2/{{version}}/bin/hisat2"
       register: hisat2_bin
@@ -34,10 +33,4 @@
       template: 
         src: templates/modules/hisat2.j2
         dest: "{{modulefiles_dir}}/hisat2/{{version}}"
-        
-
-        
-
-
-
-        
+                
