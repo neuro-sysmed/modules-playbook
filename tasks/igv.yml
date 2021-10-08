@@ -1,0 +1,42 @@
+---
+- name: install igv
+  block:
+
+    - name: check if igv executable is present
+      shell: "which {{software_dir}}/igv/{{version}}/bin/igv.sh"
+      register: igv_bin
+      ignore_errors: true
+
+    - name: make bin dir for igv
+      ansible.builtin.file:
+        path: "{{software_dir}}/igv/{{version}}/"
+        state: directory
+        mode: '0755'        
+
+
+    - name: Install igv
+      ansible.builtin.shell:  |
+        curl -Lo  /tmp/igv.zip https://data.broadinstitute.org/igv/projects/downloads/{{version}}/IGV_Linux_{{version}}.0_WithJava.zip
+        mkdir /tmp/igv/ 
+        unzip /tmp/igv.zip -d /tmp/igv
+        mv /tmp/igv/*/* {{software_dir}}/igv/{{version}}/
+        rm -rf /tmp/igv*
+      when: igv_bin.rc != 0
+
+    - name: make modulesfile dir for igv
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/igv"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/igv.j2
+        dest: "{{modulefiles_dir}}/igv/{{version}}"
+        
+
+        
+
+
+
+        

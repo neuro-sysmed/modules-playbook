@@ -107,6 +107,14 @@
       loop_control:
         loop_var: version
 
+    - name: add igv
+      include: tasks/igv.yml
+      tags: igv
+      loop:
+        - "2.11"
+      loop_control:
+        loop_var: version
+
     - name: add cellranger (only latest is available for download, but for now...)
       include: tasks/cellranger.yml
       tags: cellranger
@@ -114,7 +122,8 @@
         - "6.1.1"
       loop_control:
         loop_var: version
-    
+
+
     - name: add hisat2
       include: tasks/hisat2.yml
       tags: hisat2
