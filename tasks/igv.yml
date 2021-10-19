@@ -9,7 +9,7 @@
 
     - name: make bin dir for igv
       ansible.builtin.file:
-        path: "{{software_dir}}/igv/{{version}}/"
+        path: "{{software_dir}}/igv/{{version}}/bin/"
         state: directory
         mode: '0755'        
 
@@ -19,7 +19,7 @@
         curl -Lo  /tmp/igv.zip https://data.broadinstitute.org/igv/projects/downloads/{{version}}/IGV_Linux_{{version}}.0_WithJava.zip
         mkdir /tmp/igv/ 
         unzip /tmp/igv.zip -d /tmp/igv
-        mv /tmp/igv/*/* {{software_dir}}/igv/{{version}}/
+        mv /tmp/igv/*/* {{software_dir}}/igv/{{version}}/bin/
         rm -rf /tmp/igv*
       when: igv_bin.rc != 0
 
