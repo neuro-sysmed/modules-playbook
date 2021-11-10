@@ -1,0 +1,24 @@
+#%Module1.0
+
+set version {{version}}
+set name    picard
+set descr   "Command line tools to manipulate SAM and BAM files"
+ 
+
+proc ModulesHelp { } {
+   global version
+   puts stderr "$name: $descr
+   Version $version
+   Usage: java -jar $PICARD_JAR SortSam ...
+
+
+"
+}
+
+
+module-whatis "$name version $version"
+    
+conflict $name
+set PICARD_JAR {{software_dir}}/$name/$version
+
+

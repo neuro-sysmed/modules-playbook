@@ -1,0 +1,39 @@
+---
+- name: install picard {{version}}
+  block:
+
+    - name: check if picard jar is present
+      shell: "ls  {{software_dir}}/picard/{{version}}/picard.jar"
+      register: picard_jar
+      ignore_errors: true
+
+    - name: make dir for picard
+      ansible.builtin.file:
+        path: "{{software_dir}}/picard/{{version}}/"
+        state: directory
+        mode: '0755'        
+
+    - name: download picard
+      get_url:
+        url: https://github.com/broadinstitute/picard/releases/download/{{version}}/picard.jar
+        dest: {{software_dir}}/picard/{{version}}/picard.jar
+      when: picard_jar.rc != 0
+
+
+    - name: make modulesfile dir for picard
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/picard/"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/picard.j2
+        dest: "{{modulefiles_dir}}/picard/{{version}}"
+        
+
+        
+
+
+
+        

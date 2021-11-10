@@ -109,6 +109,14 @@
       loop_control:
         loop_var: version
 
+    - name: add picard
+      include: tasks/picard.yml
+      tags: picard
+      loop:
+        - "2.26.4"
+      loop_control:
+        loop_var: version
+
     - name: add igv
       include: tasks/igv.yml
       tags: igv
@@ -140,8 +148,6 @@
       include: tasks/singularity.yml
       tags: singularity
       loop:
-        # This is a fudge, as there is no logical version download link       
         - "3.8.3"
       loop_control:
         loop_var: version
-
