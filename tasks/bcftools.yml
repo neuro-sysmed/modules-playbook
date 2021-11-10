@@ -2,6 +2,12 @@
 - name: install bcftools
   block:
 
+    - name: install singularity build dependency packages
+      package:
+        name: 
+        - libcurl4-openssl-dev
+
+
     - name: check if bcftools executable is present
       shell: "which {{software_dir}}/bcftools/{{version}}/bin/bcftools"
       register: bcftools_bin
