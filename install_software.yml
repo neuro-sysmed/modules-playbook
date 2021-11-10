@@ -142,12 +142,3 @@
         - "2.2.1"
       loop_control:
         loop_var: version
-
-
-    - name: add singularity
-      include: tasks/singularity.yml
-      tags: singularity
-      loop:
-        - "3.8.3"
-      loop_control:
-        loop_var: version
