@@ -135,3 +135,13 @@
       loop_control:
         loop_var: version
 
+
+    - name: add singularity
+      include: tasks/singularity.yml
+      tags: singularity
+      loop:
+        # This is a fudge, as there is no logical version download link       
+        - "3.8.3"
+      loop_control:
+        loop_var: version
+

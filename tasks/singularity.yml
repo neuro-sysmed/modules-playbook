@@ -1,0 +1,68 @@
+---
+- name: install singularity
+
+  block:
+
+    - name: check if singularity executable is present
+      shell: "which {{software_dir}}/samtools/{{version}}/bin/singularity"
+      register: singularity_bin
+      ignore_errors: true
+
+    - name: install singularity build dependency packages
+      package:
+        name: 
+        - build-essential
+        - uuid-dev 
+        - libgpgme-dev
+        - squashfs-tools
+        - libseccomp-dev
+        - wget
+        - pkg-config
+        - git
+        - cryptsetup-bin
+      when: singularity_bin.rc != 0
+
+    - name: get singularity repo
+      get_url:
+        url: https://github.com/sylabs/singularity/releases/download/v{{version}}/singularity-ce-{{version}}.tar.gz
+        dest: /tmp/singularity.tgz
+      when: singularity_bin.rc != 0
+
+
+    - name: make singularity build dir
+      ansible.builtin.file:
+        path: /tmp/singularity
+        state: directory
+      when: singularity_bin.rc != 0
+
+    - name: Extract singularity code into /tmp/singularity/
+      ansible.builtin.unarchive:
+        src: /tmp/singularity.tgz
+        dest: /tmp/singularity/
+        extra_opts: 
+          - --strip-components=1 
+      when: singularity_bin.rc != 0
+
+    - name: configure singularity build
+      command:
+        chdir: /tmp/singularity
+        cmd: ./mconfig 
+      environment:
+        PATH: "{{ ansible_env.PATH }}:/usr/local/go/bin/"
+      when: singularity_bin.rc != 0
+    
+    - name: build  singularity
+      command:
+        chdir: /tmp/singularity
+        cmd:  make -C ./builddir 
+      environment:
+        PATH: "{{ ansible_env.PATH }}:/usr/local/go/bin/"
+      when: singularity_bin.rc != 0
+
+    - name: install singularity
+      command:
+        chdir: /tmp/singularity
+        cmd:  make -C ./builddir install
+      environment:
+        PATH: "{{ ansible_env.PATH }}:/usr/local/go/bin/"
+      when: singularity_bin.rc != 0
