@@ -19,6 +19,6 @@ proc ModulesHelp { } {
 module-whatis "$name version $version"
     
 conflict $name
-set PICARD_JAR {{software_dir}}/$name/$version
+setenv PICARD_JAR {{software_dir}}/$name/$version/picard.jar
 
 
