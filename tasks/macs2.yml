@@ -1,0 +1,39 @@
+---
+- name: install macs2
+  block:
+
+    - name: check if macs2 executable is present
+      shell: "which {{software_dir}}/macs2/{{version}}/bin/macs2"
+      register: macs2_bin
+      ignore_errors: true
+
+    - name: make bin dir for macs2
+      ansible.builtin.file:
+        path: "{{software_dir}}/macs2/{{version}}/"
+        state: directory
+        mode: '0755'        
+
+
+    - name: Install macs2
+      ansible.builtin.shell:  |
+        pip install --prefix {{software_dir}}/macs2/{{version}}/ https://github.com/macs3-project/MACS/archive/refs/tags/v{{version}}.tar.gz        
+      when: macs2_bin.rc != 0
+
+
+    - name: make modulesfile dir for macs2
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/macs2"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/macs2.j2
+        dest: "{{modulefiles_dir}}/macs2/{{version}}"
+        
+
+        
+
+
+
+        

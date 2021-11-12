@@ -142,3 +142,12 @@
         - "2.2.1"
       loop_control:
         loop_var: version
+
+
+    - name: add macs2
+      include: tasks/macs2.yml
+      tags: macs2
+      loop:
+        - "2.2.7.1"
+      loop_control:
+        loop_var: version

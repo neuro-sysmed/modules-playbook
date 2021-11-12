@@ -1,0 +1,22 @@
+#%Module1.0
+
+set version {{version}}
+set name    macs2
+set descr   "Model-based Analysis for ChIP-Seq"
+ 
+proc ModulesHelp { } {
+   global version
+   puts stderr "$name: $descr
+Version $version
+
+"
+}
+
+
+module-whatis "$name version $version"
+    
+conflict $name
+set rootdir {{software_dir}}/$name/$version
+
+prepend-path PATH $rootdir/bin
+prepend-path PYTHONPATH $rootdir/lib/python3.8/site-packages/
