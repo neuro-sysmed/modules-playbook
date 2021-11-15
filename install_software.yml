@@ -36,6 +36,7 @@
       include: tasks/bcftools.yml
       tags: bcftools
       loop:
+        - 1.14
         - 1.13
         - 1.12
         - 1.11
