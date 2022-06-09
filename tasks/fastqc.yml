@@ -1,0 +1,42 @@
+---
+- name: install fastqc
+  block:
+
+    - name: check if fastqc executable is present
+      shell: "which {{software_dir}}/fastqc/{{version}}/bin/fastqc"
+      register: fastqc_bin
+      ignore_errors: true
+
+    - name: make dir for fastqc
+      ansible.builtin.file:
+        path: "{{software_dir}}/fastqc/{{version}}/bin"
+        state: directory
+        mode: '0755'        
+
+    - name: Install fastqc
+      ansible.builtin.shell:  |
+        curl -Lo /tmp/fastqc.zip https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip
+        mkdir /tmp/fastqc 
+        unzip -d /tmp/fastqc/ /tmp/fastqc.zip 
+        mv /tmp/fastqc/FastQc/* {{software_dir}}/fastqc/{{version}}/bin/
+        rm -f /tmp/fastqc.zip /tmp/fastqc
+      when: fastqc_bin.rc != 0
+
+
+    - name: make modulesfile dir for fastqc
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/fastqc/"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/fastqc.j2
+        dest: "{{modulefiles_dir}}/fastqc/{{version}}"
+        
+
+        
+
+
+
+        

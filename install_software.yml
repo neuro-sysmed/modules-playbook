@@ -152,3 +152,12 @@
         - "2.2.7.1"
       loop_control:
         loop_var: version
+
+
+    - name: add fastqc
+      include: tasks/fastqc.yml
+      tags: fastqc
+      loop:
+        - "0.11.9"
+      loop_control:
+        loop_var: version
