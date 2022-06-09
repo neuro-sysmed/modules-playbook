@@ -12,6 +12,7 @@
       include: tasks/samtools.yml
       tags: samtools
       loop:
+        - 1.15.1
         - 1.14
         - 1.13
         - 1.12
@@ -24,6 +25,7 @@
       include: tasks/htslib.yml
       tags: htslib
       loop:
+        - 1.15.1
         - 1.14
         - 1.13
         - 1.12
