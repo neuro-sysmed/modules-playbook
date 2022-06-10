@@ -16,7 +16,7 @@
 
     - name: Install kentUtils
       ansible.builtin.shell:  |
-        wget --no-parent -r -P {{software_dir}}/kentUtils/{{version}}/bin/ http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/
+        rsync -aP rsync://hgdownload.soe.ucsc.edu/genome/admin/exe/linux.x86_64/ {{software_dir}}/kentUtils/{{version}}/bin/
       when: kentUtils_bin.rc != 0
 
 
