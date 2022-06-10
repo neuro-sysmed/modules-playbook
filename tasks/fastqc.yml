@@ -18,8 +18,8 @@
         curl -Lo /tmp/fastqc.zip https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip
         mkdir /usr/local/tmp/fastqc 
         unzip -d /usr/local/tmp/fastqc /tmp/fastqc.zip 
-        cp -r /usr/local/tmp/fastqc/FastQC/* {{software_dir}}/fastqc/{{version}}/bin/
-        rm -f /tmp/fastqc.zip /usr/local/tmp/fastqc
+        cp -fr /usr/local/tmp/fastqc/FastQC/* {{software_dir}}/fastqc/{{version}}/bin/
+        rm -rf /tmp/fastqc.zip /usr/local/tmp/fastqc
       when: fastqc_bin.rc != 0
 
 
