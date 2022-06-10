@@ -171,3 +171,13 @@
         - "431"
       loop_control:
         loop_var: version
+
+
+    - name: add bedops
+      include: tasks/bedops.yml
+      tags: bedops
+      loop:
+        - "2.4.40"
+        - "2.4.35"
+      loop_control:
+        loop_var: version

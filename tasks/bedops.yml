@@ -1,0 +1,43 @@
+---
+- name: install bedops
+  block:
+
+    - name: check if bedops executable is present
+      shell: "which {{software_dir}}/bedops/{{version}}/bin/bedops"
+      register: bedops_bin
+      ignore_errors: true
+
+    - name: make bin dir for bedops
+      ansible.builtin.file:
+        path: "{{software_dir}}/bedops/{{version}}/bin/"
+        state: directory
+        mode: '0755'        
+
+
+    - name: Install bedops
+      ansible.builtin.shell:  |
+        curl -Lo /tmp/bedops.tgz.bz2 https://github.com/bedops/bedops/releases/download/v{{version}}/bedops_linux_x86_64-v{{version}}.tar.bz2
+        mkdir /tmp/bedops 
+        tar jxvf /tmp/bedops.tgz.bz2 -C /tmp/bedops/
+        cp /tmp/bedops/bin/* {{software_dir}}/bedops/{{version}}/bin/
+        rm -rf /tmp/bedops*
+      when: bedops_bin.rc != 0
+
+
+    - name: make modulesfile dir for bedops
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/bedops"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/bedops.j2
+        dest: "{{modulefiles_dir}}/bedops/{{version}}"
+        
+
+        
+
+
+
+        
