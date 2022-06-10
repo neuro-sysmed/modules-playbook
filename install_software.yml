@@ -181,3 +181,11 @@
         - "2.4.35"
       loop_control:
         loop_var: version
+
+    - name: add trimmomatic
+      include: tasks/trimmomatic.yml
+      tags: trimmomatic
+      loop:
+        - "0.39"
+      loop_control:
+        loop_var: version

@@ -1,0 +1,42 @@
+---
+- name: install trimmomatic
+  block:
+
+    - name: check if trimmomatic executable is present
+      shell: "which {{software_dir}}/trimmomatic/{{version}}/bin/trimmomatic"
+      register: trimmomatic_bin
+      ignore_errors: true
+
+    - name: make dir for trimmomatic
+      ansible.builtin.file:
+        path: "{{software_dir}}/trimmomatic/{{version}}/bin"
+        state: directory
+        mode: '0755'        
+
+    - name: Install trimmomatic
+      ansible.builtin.shell:  |
+        curl -Lo /tmp/trimmomatic.zip https://github.com/usadellab/Trimmomatic/files/5854859/Trimmomatic-{{version}}.zip
+        mkdir /usr/local/trimmomatic 
+        unzip -d /usr/local/tmp/trimmomatic/ /tmp/trimmomatic.zip 
+        mv /usr/local/tmp/trimmomatic/*/* {{software_dir}}/trimmomatic/{{version}}/bin/
+        rm -f /tmp/trimmomatic.zip /usr/local/tmp/trimmomatic
+      when: trimmomatic_bin.rc != 0
+
+
+    - name: make modulesfile dir for trimmomatic
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/trimmomatic/"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/trimmomatic.j2
+        dest: "{{modulefiles_dir}}/trimmomatic/{{version}}"
+        
+
+        
+
+
+
+        
