@@ -19,7 +19,7 @@
         mkdir /usr/local/trimmomatic 
         unzip -d /usr/local/tmp/trimmomatic/ /tmp/trimmomatic.zip 
         mv /usr/local/tmp/trimmomatic/*/* {{software_dir}}/trimmomatic/{{version}}/bin/
-        rm -f /tmp/trimmomatic.zip /usr/local/tmp/trimmomatic
+        rm -rf /tmp/trimmomatic.zip /usr/local/tmp/trimmomatic
       when: trimmomatic_bin.rc != 0
 
 
