@@ -20,6 +20,7 @@
         unzip -d /usr/local/tmp/fastqc /tmp/fastqc.zip 
         cp -fr /usr/local/tmp/fastqc/FastQC/* {{software_dir}}/fastqc/{{version}}/bin/
         rm -rf /tmp/fastqc.zip /usr/local/tmp/fastqc
+        chmod 755 {{software_dir}}/fastqc/{{version}}/bin/fastqc
       when: fastqc_bin.rc != 0
 
 

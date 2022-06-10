@@ -163,3 +163,11 @@
         - "0.11.9"
       loop_control:
         loop_var: version
+
+    - name: add kentUtils
+      include: tasks/kentUtils.yml
+      tags: kentUtils
+      loop:
+        - "431"
+      loop_control:
+        loop_var: version

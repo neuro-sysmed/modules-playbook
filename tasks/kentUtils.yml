@@ -1,0 +1,39 @@
+---
+- name: install kentUtils
+  block:
+
+    - name: check if kentUtils executable is present
+      shell: "which {{software_dir}}/kentUtils/{{version}}/bin/bedClip"
+      register: kentUtils_bin
+      ignore_errors: true
+
+    - name: make bin dir for kentUtils
+      ansible.builtin.file:
+        path: "{{software_dir}}/kentUtils/{{version}}/bin/"
+        state: directory
+        mode: '0755'        
+
+
+    - name: Install kentUtils
+      ansible.builtin.shell:  |
+        wget --no-parent -r -P {{software_dir}}/kentUtils/{{version}}/bin/ http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/
+      when: kentUtils_bin.rc != 0
+
+
+    - name: make modulesfile dir for kentUtils
+      ansible.builtin.file:
+        path: "{{modulefiles_dir}}/kentUtils"
+        state: directory
+        mode: '0755'        
+
+    - name: write module file
+      template: 
+        src: templates/modules/kentUtils.j2
+        dest: "{{modulefiles_dir}}/kentUtils/{{version}}"
+        
+
+        
+
+
+
+        
